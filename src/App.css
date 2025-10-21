@@ -1162,6 +1162,12 @@ tbody tr.position-3 {
   color: var(--primary-700);
 }
 
+.games-won {
+  font-weight: 800;
+  font-size: 1.125rem;
+  color: var(--primary-700);
+}
+
 .points {
   font-weight: 800;
   font-size: 1.25rem;
@@ -1506,14 +1512,14 @@ tbody tr.position-3 {
   }
 
   /* Nascondi colonne meno importanti su schermi piccoli */
-  th:nth-child(4), /* Vittorie */
+  th:nth-child(4), /* Partite */
   td:nth-child(4),
-  th:nth-child(5), /* Sconfitte */
+  th:nth-child(5), /* Vittorie */
   td:nth-child(5),
-  th:nth-child(6), /* Set vinti */
+  th:nth-child(6), /* Sconfitte */
   td:nth-child(6),
-  th:nth-child(7), /* Set persi */
-  td:nth-child(7) {
+  th:nth-child(8), /* Game persi */
+  td:nth-child(8) {
     display: none;
   }
 

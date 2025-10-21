@@ -17,8 +17,8 @@ export interface TeamRating {
 }
 
 export interface MatchResult {
-  team1Score: number;  // Set vinti dalla squadra 1
-  team2Score: number;  // Set vinti dalla squadra 2
+  team1Score: number;  // Game vinti dalla squadra 1 (3-0, 3-1, 3-2)
+  team2Score: number;  // Game vinti dalla squadra 2
   ratingChanges?: {
     [playerId: string]: number;  // Variazione rating per giocatore
   };
@@ -42,9 +42,9 @@ export interface PlayerStats {
   played: number;      // P - Partite giocate
   wins: number;        // W - Vittorie
   losses: number;      // L - Sconfitte
-  setsWon: number;     // SV - Set vinti
-  setsLost: number;    // SP - Set persi
-  setDiff: number;     // ΔS - Differenza set
+  gamesWon: number;    // GV - Game vinti (al meglio dei 5)
+  gamesLost: number;   // GP - Game persi
+  gameDiff: number;    // ΔG - Differenza game
   points: number;      // Punti totali (3 × W)
 }
 

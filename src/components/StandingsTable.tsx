@@ -81,10 +81,9 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({ standings }) => 
               <th>P</th>
               <th>W</th>
               <th>L</th>
-              <th>SV</th>
-              <th>SP</th>
-              <th>ΔS</th>
-              <th>Punti</th>
+              <th>GV</th>
+              <th>GP</th>
+              <th>ΔG</th>
             </tr>
           </thead>
           <tbody>
@@ -100,13 +99,12 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({ standings }) => 
                 <td>{stat.played}</td>
                 <td>{stat.wins}</td>
                 <td>{stat.losses}</td>
-                <td>{stat.setsWon}</td>
-                <td>{stat.setsLost}</td>
-                <td className={stat.setDiff >= 0 ? 'positive' : 'negative'}>
-                  {stat.setDiff >= 0 ? '+' : ''}
-                  {stat.setDiff}
+                <td className="games-won">{stat.gamesWon}</td>
+                <td>{stat.gamesLost}</td>
+                <td className={stat.gameDiff >= 0 ? 'positive' : 'negative'}>
+                  {stat.gameDiff >= 0 ? '+' : ''}
+                  {stat.gameDiff}
                 </td>
-                <td className="points">{stat.points}</td>
               </tr>
             ))}
           </tbody>

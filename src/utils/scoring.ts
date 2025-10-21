@@ -12,8 +12,8 @@ function calculatePlayerStats(
   const playerName = player.name;
   let wins = 0;
   let losses = 0;
-  let setsWon = 0;
-  let setsLost = 0;
+  let gamesWon = 0;
+  let gamesLost = 0;
   let played = 0;
 
   matches.forEach((match) => {
@@ -31,19 +31,19 @@ function calculatePlayerStats(
     const team1Won = match.result.team1Score > match.result.team2Score;
 
     if (isInTeam1) {
-      setsWon += match.result.team1Score;
-      setsLost += match.result.team2Score;
+      gamesWon += match.result.team1Score;
+      gamesLost += match.result.team2Score;
       if (team1Won) wins++;
       else losses++;
     } else {
-      setsWon += match.result.team2Score;
-      setsLost += match.result.team1Score;
+      gamesWon += match.result.team2Score;
+      gamesLost += match.result.team1Score;
       if (!team1Won) wins++;
       else losses++;
     }
   });
 
-  const setDiff = setsWon - setsLost;
+  const gameDiff = gamesWon - gamesLost;
   const points = wins * 3;
   const ratingChange = player.rating - player.initialRating;
 
@@ -57,9 +57,9 @@ function calculatePlayerStats(
     played,
     wins,
     losses,
-    setsWon,
-    setsLost,
-    setDiff,
+    gamesWon,
+    gamesLost,
+    gameDiff,
     points,
   };
 }
@@ -76,22 +76,22 @@ export function generateStandings(tournament: Tournament): Standings {
     calculatePlayerStats(player, tournament.matches || [])
   );
 
-  // Ordina secondo i criteri di spareggio
+  // Ordina secondo i nuovi criteri di spareggio
   stats.sort((a, b) => {
-    // 1. Punti totali (decrescente) - CRITERIO PRINCIPALE
-    if (b.points !== a.points) return b.points - a.points;
+    // 1. GAME VINTI (decrescente) - CRITERIO PRINCIPALE
+    if (b.gamesWon !== a.gamesWon) return b.gamesWon - a.gamesWon;
 
-    // 2. Differenza set (decrescente)
-    if (b.setDiff !== a.setDiff) return b.setDiff - a.setDiff;
+    // 2. Differenza game ΔG (decrescente)
+    if (b.gameDiff !== a.gameDiff) return b.gameDiff - a.gameDiff;
 
-    // 3. Set vinti totali (decrescente)
-    if (b.setsWon !== a.setsWon) return b.setsWon - a.setsWon;
+    // 3. Game vinti - già usato ma lo consideriamo implicitamente
+    // Passiamo direttamente al prossimo criterio
 
-    // 4. Rating ELO (crescente) - vince chi ha MENO rating
+    // 4. Head-to-head: TODO implementare incontro diretto
+    // Per ora saltiamo, richiederebbe analisi match specifici
+
+    // 5. Rating ELO (crescente) - vince chi ha MENO rating
     if (a.rating !== b.rating) return a.rating - b.rating;
-
-    // 5. Vittorie (decrescente)
-    if (b.wins !== a.wins) return b.wins - a.wins;
 
     // 6. Nome (alfabetico) come ultimo criterio
     return a.playerName.localeCompare(b.playerName);

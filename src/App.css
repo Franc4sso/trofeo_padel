@@ -616,6 +616,77 @@ body {
   transform: scale(1.1);
 }
 
+.btn-edit {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--primary-500);
+  border-radius: var(--radius-full);
+  background: var(--primary-50);
+  color: var(--primary-600);
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.btn-edit:hover {
+  background: var(--primary-600);
+  color: white;
+  transform: scale(1.1);
+}
+
+.btn-success-small {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 2px solid var(--success);
+  border-radius: var(--radius-md);
+  background: var(--success);
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.btn-success-small:hover {
+  background: #059669;
+  border-color: #059669;
+  transform: scale(1.05);
+}
+
+.btn-secondary-small {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 2px solid var(--gray-400);
+  border-radius: var(--radius-md);
+  background: var(--gray-100);
+  color: var(--gray-700);
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.btn-secondary-small:hover {
+  background: var(--gray-300);
+  border-color: var(--gray-500);
+  transform: scale(1.05);
+}
+
 /* ===================================
    PLAYER LIST
    =================================== */
@@ -715,6 +786,41 @@ body {
 .rating-category {
   font-weight: 500;
   opacity: 0.8;
+}
+
+.player-actions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.rating-edit-controls {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.input-rating-edit {
+  width: 100px;
+  padding: var(--space-2) var(--space-3);
+  border: 2px solid var(--primary-500);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.input-rating-edit:focus {
+  outline: none;
+  border-color: var(--primary-600);
+  box-shadow: 0 0 0 3px var(--primary-100);
+}
+
+.player-item.editing {
+  background: var(--primary-50);
+  border-color: var(--primary-500);
+  box-shadow: var(--shadow-md);
 }
 
 .player-rating-small {
@@ -1162,10 +1268,17 @@ tbody tr.position-3 {
   color: var(--primary-700);
 }
 
+.games-normalized {
+  font-weight: 900;
+  font-size: 1.25rem;
+  color: var(--primary-800);
+  background: var(--primary-50);
+}
+
 .games-won {
-  font-weight: 800;
-  font-size: 1.125rem;
-  color: var(--primary-700);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--gray-700);
 }
 
 .points {
@@ -1518,10 +1631,12 @@ tbody tr.position-3 {
   td:nth-child(5),
   th:nth-child(6), /* Sconfitte */
   td:nth-child(6),
-  th:nth-child(8), /* Game persi */
-  td:nth-child(8) {
+  th:nth-child(9), /* Game persi */
+  td:nth-child(9) {
     display: none;
   }
+
+  /* Mostra: Pos, Nome, Rating, GN, GV, ΔG */
 
   /* Player avatar in tabella più piccolo */
   .player-avatar {

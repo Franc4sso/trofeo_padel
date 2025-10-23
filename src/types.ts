@@ -45,6 +45,7 @@ export interface PlayerStats {
   gamesWon: number;    // GV - Game vinti (al meglio dei 5)
   gamesLost: number;   // GP - Game persi
   gameDiff: number;    // ΔG - Differenza game
+  gamesNormalized: number; // GN - Game normalizzati (GV + bonus se hai 1 partita in meno)
   points: number;      // Punti totali (3 × W)
 }
 

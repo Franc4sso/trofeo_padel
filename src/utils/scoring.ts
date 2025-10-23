@@ -47,6 +47,11 @@ function calculatePlayerStats(
   const points = wins * 3;
   const ratingChange = player.rating - player.initialRating;
 
+  // Calcola i game normalizzati (GN)
+  // GN = GV se il giocatore ha giocato il massimo di partite
+  // GN = GV + floor(GV / partite) se ha 1 partita in meno
+  const gamesNormalized = gamesWon; // Valore di default, verrà ricalcolato dopo
+
   return {
     playerId,
     playerName,
@@ -60,6 +65,7 @@ function calculatePlayerStats(
     gamesWon,
     gamesLost,
     gameDiff,
+    gamesNormalized,
     points,
   };
 }
@@ -76,16 +82,33 @@ export function generateStandings(tournament: Tournament): Standings {
     calculatePlayerStats(player, tournament.matches || [])
   );
 
+  // Trova il massimo numero di partite giocate
+  const maxPlayed = Math.max(...stats.map((s) => s.played), 0);
+
+  // Calcola i game normalizzati (GN) per ogni giocatore
+  stats.forEach((stat) => {
+    if (stat.played === 0) {
+      stat.gamesNormalized = 0;
+    } else if (stat.played === maxPlayed) {
+      // Se hai giocato il massimo, GN = GV
+      stat.gamesNormalized = stat.gamesWon;
+    } else {
+      // Se hai 1 partita in meno, aggiungi floor(GV / partite)
+      const bonus = Math.floor(stat.gamesWon / stat.played);
+      stat.gamesNormalized = stat.gamesWon + bonus;
+    }
+  });
+
   // Ordina secondo i nuovi criteri di spareggio
   stats.sort((a, b) => {
-    // 1. GAME VINTI (decrescente) - CRITERIO PRINCIPALE
-    if (b.gamesWon !== a.gamesWon) return b.gamesWon - a.gamesWon;
+    // 1. GAME NORMALIZZATI (GN) (decrescente) - CRITERIO PRINCIPALE
+    if (b.gamesNormalized !== a.gamesNormalized) return b.gamesNormalized - a.gamesNormalized;
 
     // 2. Differenza game ΔG (decrescente)
     if (b.gameDiff !== a.gameDiff) return b.gameDiff - a.gameDiff;
 
-    // 3. Game vinti - già usato ma lo consideriamo implicitamente
-    // Passiamo direttamente al prossimo criterio
+    // 3. Game vinti reali (decrescente)
+    if (b.gamesWon !== a.gamesWon) return b.gamesWon - a.gamesWon;
 
     // 4. Head-to-head: TODO implementare incontro diretto
     // Per ora saltiamo, richiederebbe analisi match specifici

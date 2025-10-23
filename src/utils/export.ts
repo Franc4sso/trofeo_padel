@@ -4,7 +4,7 @@ import type { Tournament, Standings, Match } from '../types';
  * Converte la classifica in formato CSV
  */
 export function exportStandingsToCSV(standings: Standings): string {
-  const headers = ['Pos', 'Nome', 'Rating', 'Δ Rating', 'P', 'W', 'L', 'GV', 'GP', 'ΔG', 'Punti'];
+  const headers = ['Pos', 'Nome', 'Rating', 'Δ Rating', 'P', 'W', 'L', 'GN', 'GV', 'GP', 'ΔG', 'Punti'];
   const rows = standings.stats.map((stat, index) => [
     (index + 1).toString(),
     stat.playerName,
@@ -13,6 +13,7 @@ export function exportStandingsToCSV(standings: Standings): string {
     stat.played.toString(),
     stat.wins.toString(),
     stat.losses.toString(),
+    stat.gamesNormalized.toString(),
     stat.gamesWon.toString(),
     stat.gamesLost.toString(),
     (stat.gameDiff >= 0 ? '+' : '') + stat.gameDiff.toString(),

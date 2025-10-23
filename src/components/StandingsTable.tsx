@@ -81,6 +81,7 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({ standings }) => 
               <th>P</th>
               <th>W</th>
               <th>L</th>
+              <th>GN</th>
               <th>GV</th>
               <th>GP</th>
               <th>ΔG</th>
@@ -99,6 +100,7 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({ standings }) => 
                 <td>{stat.played}</td>
                 <td>{stat.wins}</td>
                 <td>{stat.losses}</td>
+                <td className="games-normalized">{stat.gamesNormalized}</td>
                 <td className="games-won">{stat.gamesWon}</td>
                 <td>{stat.gamesLost}</td>
                 <td className={stat.gameDiff >= 0 ? 'positive' : 'negative'}>

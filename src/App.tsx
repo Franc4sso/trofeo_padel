@@ -113,6 +113,17 @@ function App() {
     }));
   };
 
+  const handleEditPlayerRating = (playerId: string, newRating: number) => {
+    setTournament((prev) => ({
+      ...prev,
+      players: (prev.players || []).map((p) =>
+        p.id === playerId
+          ? { ...p, rating: newRating, initialRating: newRating }
+          : p
+      ),
+    }));
+  };
+
   const handleStartTournament = () => {
     if ((tournament.players || []).length < 4) {
       alert('Servono almeno 4 giocatori per iniziare il torneo!');
@@ -260,7 +271,11 @@ function App() {
 
             <section className="section">
               <h2>Lista Giocatori</h2>
-              <PlayerList players={tournament.players || []} onRemovePlayer={handleRemovePlayer} />
+              <PlayerList
+                players={tournament.players || []}
+                onRemovePlayer={handleRemovePlayer}
+                onEditRating={handleEditPlayerRating}
+              />
             </section>
 
             {(tournament.players || []).length >= 4 && tournament.currentRound === 0 && (
